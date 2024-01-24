@@ -1,3 +1,10 @@
+/*
+ * Adds locks whenever we dereference the pointer to the shared
+ * integer. There are two ways to do this: one is to lock the entire
+ * loop, and that's what this one does. This effectivelly serializes
+ * the child threads, and ever thread sees only its own increments.
+ */
+
 #include <iostream>
 #include <string>
 #include "cpu.h"

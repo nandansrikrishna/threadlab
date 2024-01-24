@@ -1,3 +1,8 @@
+/*
+ * This is the version to start with. It uses the thread library but
+ * has only one thread.
+ */
+
 #include <iostream>
 #include <string>
 #include "cpu.h"
@@ -10,13 +15,17 @@ using std::endl;
 using std::string;
 
 
+// The argument block to the incrementer
+// I am not using globals, but you could if you think it is easier
+
 struct args {
-	int        *intp;
+	int        *intp; // Must be a pointer
 	int         count;
 	string      msg;
 };
 		   
   
+// Increments the pointed-to-integer count times.
 void incrementer(struct args *ap)
 {
 	int *ip = ap->intp;
@@ -29,7 +38,8 @@ void incrementer(struct args *ap)
 }
 
 
-void parent(void *vp) // vp is unused
+// The "main" thread body; argument is unused.
+void parent(void *vp) 
 {
 	int *ip = new(int);
 

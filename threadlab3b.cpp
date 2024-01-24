@@ -1,11 +1,12 @@
 /*
- * The next step is to divide the "work" of incrementing across
- * several incrementers. There are no locks, so this should drop some
- * increments, and none of the threads should be able to reach the
- * "correct" total. You may need to play with the costants to make
- * sure that "bad" things happen on the architectures of choice.
+ * Adds locks whenever we dereference the pointer to the shared
+ * integer. There are two ways to do this: one is to lock the entire
+ * loop, and the other is to acquire and release around each
+ * increment. This version does the latter. It is much more expensive,
+ * but allows the threads to be interleaved. So, the count is higher
+ * than just that thread's contribution, but the "final" thread that
+ * finishes has the correct total. Increments are never dropped.
  */
-
 
 #include <iostream>
 #include <string>
@@ -20,6 +21,7 @@ using std::string;
 
 
 struct args {
+	mutex      *mu;
 	int        *intp;
 	int         count;
 	string      msg;
@@ -34,7 +36,9 @@ void incrementer(void *vp)
 	int *ip = ap->intp;
 	
 	for (int i = 0; i < ap->count; i++) {
+		ap->mu->lock();
 		(*ip)++;
+		ap->mu->unlock();
 	}
 
 	printf("%s value is %d\n", ap->msg.c_str(), *(ap->intp));
@@ -47,9 +51,11 @@ void parent(void *vp) // vp is unused
 	const int counter = 1000000;
 
 	int *ip = new(int);
+	mutex *mu = new(mutex);
 
 	for (int i = 0; i < 10; i++) {
 		struct args *ap = new(struct args);
+		ap->mu = mu;
 		ap->intp = ip;
 		ap->count = counter/numInc;
 		ap->msg = "incrementer ";
@@ -57,7 +63,9 @@ void parent(void *vp) // vp is unused
 		thread t(incrementer, ap);
 	}
 
+	mu->lock();
 	printf("value is: %d\n", *ip);
+	mu->unlock();
 }
 
 

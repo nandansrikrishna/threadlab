@@ -1,3 +1,11 @@
+/*
+ * The final version includes a CV, plus a state variable that counts
+ * the remaining live incrementers. Each incrementer reduces that
+ * count by one and signals when it is done. The parent thread waits
+ * unitl all of them have finished to print the total value, which is
+ * now guaranteed to be correct.
+ */
+
 #include <iostream>
 #include <string>
 #include "cpu.h"
