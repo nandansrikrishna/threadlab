@@ -9,7 +9,7 @@ else
 endif
 
 # List of source files
-LAB_SOURCES=NAME-ME.cpp
+LAB_SOURCES=TODO.cpp
 EXE_NAME=${LAB_SOURCES:.cpp=}
 LAB_SOLUTION_SOURCES=solutions/threadlab.cpp
 
