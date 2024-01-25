@@ -17,7 +17,7 @@ LAB_SOLUTION_SOURCES=solutions/threadlab.cpp
 LAB_OBJS=${LAB_SOURCES:.cpp=.o}
 LAB_SOLUTION_OBJS=${LAB_SOLUTION_SOURCES:.cpp=.o}
 
-all: ${EXE_NAME} threadlab_solution
+all: ${EXE_NAME}
 
 ${EXE_NAME}: ${LAB_OBJS} ${LIBTHREAD}
 	${CC} -o $@ $^ -ldl -pthread
