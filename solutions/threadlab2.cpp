@@ -46,7 +46,7 @@ void parent(void *vp) // vp is unused
 	const int numInc = 10;
 	const int counter = 1000000;
 
-	int *ip = new(int);
+	int *ip = new int(0);
 
 	for (int i = 0; i < 10; i++) {
 		struct args *ap = new(struct args);

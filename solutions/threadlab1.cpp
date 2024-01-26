@@ -41,7 +41,7 @@ void incrementer(void *vp)
 
 void parent(void *vp) // vp is unused
 {
-	int *ip = new(int);
+	int *ip = new int(0);
 
 	struct args *ap = new(struct args);
 	ap->intp = ip;

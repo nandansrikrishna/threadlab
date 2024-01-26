@@ -41,7 +41,7 @@ void incrementer(struct args *ap)
 // The "main" thread body; argument is unused.
 void parent(void *vp) 
 {
-	int *ip = new(int);
+	int *ip = new int(0);
 
 	struct args *ap = new(struct args);
 	ap->intp = ip;

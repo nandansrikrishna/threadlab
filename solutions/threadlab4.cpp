@@ -57,7 +57,7 @@ void parent(void *vp) // vp is unused
 
 	mutex *mu = new(mutex);
 	cv    *finished = new(cv);
-	int   *ip = new(int);
+	int   *ip = new int(0);
 	int   *remainp = new int(numInc);
 	
 
