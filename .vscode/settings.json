@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.css": "tailwindcss",
+        "__mutex_base": "cpp"
+    }
+}
